@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Berdua · Masuk</title>
+<meta name="theme-color" content="#e11d74">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/img/icon-192.png">
+<link rel="apple-touch-icon" href="assets/img/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/bootstrap-icons.min.css">
+<link rel="stylesheet" href="assets/css/app.css">
+<script src="firebase-config.js"></script>
+</head>
+<body class="login-body">
+<main class="login">
+  <div class="login-hero">
+    <div class="hati"><i class="bi bi-heart-fill"></i></div>
+    <h1><span class="n1">Nain</span> <i class="bi bi-heart-fill"></i> <span class="n2">Syalwa</span></h1>
+    <p>Ruang kecil khusus berdua.</p>
+  </div>
+  <form id="f" class="card login-card" autocomplete="on">
+    <div id="cfgwarn" class="warn" hidden><i class="bi bi-exclamation-triangle-fill"></i> Firebase belum diisi. Buka <b>firebase-config.js</b> lalu isi sesuai panduan SETUP.</div>
+    <label>Email<input id="em" type="email" autocomplete="username" required placeholder="nama@email.com"></label>
+    <label>Kata sandi
+      <span class="pw"><input id="pw" type="password" autocomplete="current-password" required placeholder="••••••••"><button type="button" id="lihat" aria-label="Tampilkan sandi"><i class="bi bi-eye"></i></button></span>
+    </label>
+    <div id="err" class="err" role="alert" hidden></div>
+    <button class="btn primary big" id="go" type="submit">Masuk</button>
+  </form>
+  <p class="foot">Hanya untuk kita berdua <i class="bi bi-lock-fill"></i></p>
+</main>
+<script type="module">
+import {configured,F,auth,urlPesanError,tunggu_login} from "./assets/js/core.js";
+const $=s=>document.querySelector(s);
+if(!configured){$("#cfgwarn").hidden=false;$("#go").disabled=true}
+else{
+  const u=await tunggu_login(); if(u)location.replace("app.html");
+  $("#f").addEventListener("submit",async e=>{
+    e.preventDefault();const b=$("#go"),er=$("#err");er.hidden=true;b.disabled=true;b.textContent="Masuk…";
+    try{await F.signInWithEmailAndPassword(auth,$("#em").value.trim(),$("#pw").value);location.replace("app.html")}
+    catch(x){er.textContent=urlPesanError(x);er.hidden=false;b.disabled=false;b.textContent="Masuk"}
+  });
+}
+$("#lihat").onclick=()=>{const p=$("#pw"),s=p.type==="password";p.type=s?"text":"password";$("#lihat i").className="bi "+(s?"bi-eye-slash":"bi-eye")};
+if("serviceWorker"in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>

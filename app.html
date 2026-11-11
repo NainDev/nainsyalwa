@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Berdua</title>
+<meta name="theme-color" content="#e11d74">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/img/icon-192.png">
+<link rel="apple-touch-icon" href="assets/img/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/bootstrap-icons.min.css">
+<link rel="stylesheet" href="assets/vendor/leaflet.css">
+<link rel="stylesheet" href="assets/css/app.css">
+<script src="firebase-config.js"></script>
+</head>
+<body>
+<div id="boot" class="boot"><i class="bi bi-heart-fill"></i></div>
+<header class="top">
+  <div class="brand"><span class="n1" id="tn1">Nain</span><i class="bi bi-heart-fill"></i><span class="n2" id="tn2">Syalwa</span></div>
+  <div class="top-r"><span id="dot" class="dot" title="Status koneksi"></span></div>
+</header>
+<main id="v" tabindex="-1"></main>
+<nav class="nav" id="nav">
+  <a href="#/beranda" data-r="beranda"><i class="bi bi-house-heart-fill"></i><span>Beranda</span></a>
+  <a href="#/kenangan" data-r="kenangan"><i class="bi bi-images"></i><span>Kenangan</span></a>
+  <a href="#/chat" data-r="chat"><i class="bi bi-chat-heart-fill"></i><span>Chat</span><b class="badge" id="bch" hidden>0</b></a>
+  <a href="#/lokasi" data-r="lokasi"><i class="bi bi-geo-alt-fill"></i><span>Lokasi</span></a>
+  <a href="#/kita" data-r="kita"><i class="bi bi-person-hearts"></i><span>Kita</span></a>
+</nav>
+<script src="assets/vendor/leaflet.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

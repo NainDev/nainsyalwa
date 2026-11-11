@@ -1,0 +1,181 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "profil": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "$w": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI') && ($w === 'nain' || $w === 'syalwa') && (!data.exists() || data.child('uid').val() === auth.uid)",
+        ".validate": "newData.hasChildren(['uid']) && newData.child('uid').val() === auth.uid",
+        "uid": {
+          ".validate": "newData.isString()"
+        },
+        "foto": {
+          ".validate": "newData.isString() && newData.val().matches(/^data:image\\/(png|jpeg|webp);base64,/) && newData.val().length < 150000"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "kita": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "jadian": {
+        ".validate": "newData.isString() && newData.val().matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)"
+      },
+      "lahir": {
+        "nain": {
+          ".validate": "newData.isString() && newData.val().matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)"
+        },
+        "syalwa": {
+          ".validate": "newData.isString() && newData.val().matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)"
+        },
+        "$o": {
+          ".validate": false
+        }
+      },
+      "kata": {
+        ".validate": "newData.isString() && newData.val().length <= 120"
+      },
+      "foto": {
+        "$w": {
+          ".validate": "newData.isString() && newData.val().matches(/^data:image\\/(png|jpeg|webp);base64,/) && newData.val().length < 150000"
+        }
+      },
+      "$o": {
+        ".validate": false
+      }
+    },
+    "tanggal": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "$id": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+        ".validate": "newData.hasChildren(['nama','tgl'])",
+        "nama": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 60"
+        },
+        "tgl": {
+          ".validate": "newData.isString() && newData.val().matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)"
+        },
+        "ulang": {
+          ".validate": "newData.isBoolean()"
+        },
+        "oleh": {
+          ".validate": "newData.val() === 'nain' || newData.val() === 'syalwa'"
+        },
+        "$o": {
+          ".validate": false
+        }
+      }
+    },
+    "kenangan": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      ".indexOn": [
+        "tgl"
+      ],
+      "$id": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+        ".validate": "newData.hasChildren(['tgl','thumb','oleh'])",
+        "tgl": {
+          ".validate": "newData.isString() && newData.val().matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)"
+        },
+        "judul": {
+          ".validate": "newData.isString() && newData.val().length <= 80"
+        },
+        "cerita": {
+          ".validate": "newData.isString() && newData.val().length <= 1000"
+        },
+        "thumb": {
+          ".validate": "newData.isString() && newData.val().matches(/^data:image\\/(png|jpeg|webp);base64,/) && newData.val().length < 100000"
+        },
+        "oleh": {
+          ".validate": "newData.val() === 'nain' || newData.val() === 'syalwa'"
+        },
+        "t": {
+          ".validate": "newData.isNumber()"
+        },
+        "$o": {
+          ".validate": false
+        }
+      }
+    },
+    "foto": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "$id": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+        ".validate": "newData.isString() && newData.val().matches(/^data:image\\/(png|jpeg|webp);base64,/) && newData.val().length < 700000"
+      }
+    },
+    "chat": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "$id": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI') && ((!data.exists() && newData.exists() && root.child('profil/' + newData.child('u').val() + '/uid').val() === auth.uid) || (data.exists() && !newData.exists() && root.child('profil/' + data.child('u').val() + '/uid').val() === auth.uid))",
+        ".validate": "newData.hasChildren(['u','t']) && (newData.hasChild('tx') || newData.hasChild('img'))",
+        "u": {
+          ".validate": "newData.val() === 'nain' || newData.val() === 'syalwa'"
+        },
+        "t": {
+          ".validate": "newData.isNumber()"
+        },
+        "tx": {
+          ".validate": "newData.isString() && newData.val().length <= 2000"
+        },
+        "img": {
+          ".validate": "newData.isString() && newData.val().matches(/^data:image\\/(png|jpeg|webp);base64,/) && newData.val().length < 300000"
+        },
+        "$o": {
+          ".validate": false
+        }
+      }
+    },
+    "baca": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "$w": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI') && root.child('profil/' + $w + '/uid').val() === auth.uid",
+        ".validate": "newData.isNumber()"
+      }
+    },
+    "mengetik": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "$w": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI') && root.child('profil/' + $w + '/uid').val() === auth.uid",
+        ".validate": "newData.isNumber()"
+      }
+    },
+    "lokasi": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "$w": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI') && root.child('profil/' + $w + '/uid').val() === auth.uid",
+        "lat": {
+          ".validate": "newData.isNumber() && newData.val() >= -90 && newData.val() <= 90"
+        },
+        "lng": {
+          ".validate": "newData.isNumber() && newData.val() >= -180 && newData.val() <= 180"
+        },
+        "ak": {
+          ".validate": "newData.isNumber()"
+        },
+        "t": {
+          ".validate": "newData.isNumber()"
+        },
+        "bat": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+        },
+        "aktif": {
+          ".validate": "newData.isBoolean()"
+        },
+        "$o": {
+          ".validate": false
+        }
+      }
+    },
+    "minta": {
+      ".read": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+      "$w": {
+        ".write": "auth != null && auth.token.email != null && (auth.token.email.toLowerCase() === 'EMAIL_1_DI_SINI' || auth.token.email.toLowerCase() === 'EMAIL_2_DI_SINI')",
+        ".validate": "newData.isNumber()"
+      }
+    }
+  }
+}
